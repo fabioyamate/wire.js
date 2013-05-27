@@ -1,7 +1,8 @@
 # Require.js
 
 This is a basic implementation of module definition and requiring it dynamically. It doesn't have
-anything related to the require.js specification, it just follow some Node module require syntax.
+anything related to the [require.js](https://github.com/jrburke/requirejs) specification, it just
+follow some [Node module require syntax](http://nodejs.org/api/modules.html).
 
 It manages static modules defined for application and don't manage external resources from CDN.
 
@@ -54,7 +55,7 @@ console.log(url); // 'http://domain.com'
 
 ## Development
 
-It uses QUnit for tests. Just open in browser the `test/index.html`.
+It uses [QUnit](http://qunitjs.com/) for tests. Just open in browser the `test/index.html`.
 
 ## Support
 
