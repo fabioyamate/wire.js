@@ -1,0 +1,152 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Require.js by fabioyamate</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Require.js</h1>
+        <p>Simple require and module definition for Javascript in browser</p>
+        <p class="view"><a href="https://github.com/fabioyamate/require.js">View the Project on GitHub <small>fabioyamate/require.js</small></a></p>
+        <ul>
+          <li><a href="https://github.com/fabioyamate/require.js/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/fabioyamate/require.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/fabioyamate/require.js">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="requirejs" class="anchor" href="#requirejs"><span class="octicon octicon-link"></span></a>Require.js</h1>
+
+<p>This is a basic implementation of module definition and requiring it dynamically. It doesn't have
+anything related to the <a href="https://github.com/jrburke/requirejs">require.js</a> specification, it just
+follow some <a href="http://nodejs.org/api/modules.html">Node module require syntax</a>.</p>
+
+<p>It manages static modules defined for application and don't manage external resources from CDN.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Defining a module is pretty simple:</p>
+
+<div class="highlight"><pre><span class="c1">// file foo.js</span>
+<span class="nx">define</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">function</span> <span class="nx">Foo</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">message</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">Foo</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">say</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Foo</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>It can exports an object:</p>
+
+<div class="highlight"><pre><span class="c1">// file config.js</span>
+<span class="nx">define</span><span class="p">(</span><span class="s1">'config'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">CONFIG</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s1">'http://domain.com'</span>
+  <span class="p">};</span>
+
+  <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">CONFIG</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>Requiring a module is pretty simple:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">FooBar</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">);</span>
+<span class="nx">foobar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FooBar</span><span class="p">(</span><span class="s1">'hello world'</span><span class="p">);</span>
+<span class="nx">foobar</span><span class="p">.</span><span class="nx">say</span><span class="p">();</span> <span class="c1">// alerts 'hello world'</span>
+</pre></div>
+
+<p>You also require a specific property of an object:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'config'</span><span class="p">).</span><span class="nx">url</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span> <span class="c1">// 'http://domain.com'</span>
+</pre></div>
+
+<h3>
+<a name="context-module-definition" class="anchor" href="#context-module-definition"><span class="octicon octicon-link"></span></a>Context module definition</h3>
+
+<p>The caller of the module is the module export itself, which means:</p>
+
+<div class="highlight"><pre><span class="nx">define</span><span class="p">(</span><span class="s1">'m'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">module</span> <span class="o">===</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+
+<h3>
+<a name="access-to-the-global-object" class="anchor" href="#access-to-the-global-object"><span class="octicon octicon-link"></span></a>Access to the global object</h3>
+
+<div class="highlight"><pre><span class="c1">// file module.js</span>
+<span class="nx">define</span><span class="p">(</span><span class="s1">'my.module'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">module</span><span class="p">,</span> <span class="nx">global</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">$</span> <span class="o">=</span> <span class="nx">global</span><span class="p">.</span><span class="nx">jQuery</span><span class="p">;</span>
+
+  <span class="kd">function</span> <span class="nx">A</span><span class="p">(</span><span class="nx">selector</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="nx">A</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">'html'</span><span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">A</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+
+<h2>
+<a name="development" class="anchor" href="#development"><span class="octicon octicon-link"></span></a>Development</h2>
+
+<p>It uses <a href="http://qunitjs.com/">QUnit</a> for tests. Just open in browser the <code>test/index.html</code>.</p>
+
+<h2>
+<a name="support" class="anchor" href="#support"><span class="octicon octicon-link"></span></a>Support</h2>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Copyright 2013 Fabio Yamate <a href="mailto:fabioyamate@gmail.com">fabioyamate@gmail.com</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/fabioyamate">fabioyamate</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
