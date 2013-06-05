@@ -28,7 +28,7 @@ define('foo', function(module) {
 It can exports an object:
 
 ```javascript
-// file foo.js
+// file config.js
 define('config', function(module) {
   var CONFIG = {
     url: 'http://domain.com'
@@ -51,6 +51,25 @@ You also require a specific property of an object:
 ```javascript
 var url = require('config').url;
 console.log(url); // 'http://domain.com'
+```
+
+### Access to the global object
+
+```javascript
+// file module.js
+define('my.module', function(module, global) {
+  var $ = global.jQuery;
+
+  function A(selector) {
+    this.$el = $(selector);
+  };
+
+  A.prototype.render = function() {
+    this.$el.append('html');
+  };
+
+  module.exports = A;
+});
 ```
 
 ## Development

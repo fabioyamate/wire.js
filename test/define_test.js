@@ -2,6 +2,9 @@ module('define');
 
 function moduleDefinition() {}
 
+var foo = '[global bar]';
+var globalObject = this;
+
 test('lazy eval of module definition', function() {
   define('foo', function() {
     throw 'error';
@@ -102,4 +105,13 @@ test('caller context is the module export', function() {
   });
 
   require('context');
+});
+
+test('global object access', function() {
+  define('global$object', function(module, global) {
+    equal(global, globalObject, 'have access to the global object');
+    equal('[global bar]', global.foo);
+  });
+
+  require('global$object');
 });

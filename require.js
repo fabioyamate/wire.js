@@ -64,7 +64,7 @@
 
         default:
             this.state = LOADING_STATE;
-            this.fn.call(this.m, this.m);
+            this.fn.call(this.m, this.m, root);
             this.state = LOADED_STATE;
         }
 
