@@ -95,3 +95,11 @@ test('evals once the module definition', function() {
 
   equal(count, 1);
 });
+
+test('caller context is the module export', function() {
+  define('context', function(module) {
+    equal(module, this, 'the caller is the module');
+  });
+
+  require('context');
+});
