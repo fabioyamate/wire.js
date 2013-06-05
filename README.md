@@ -53,6 +53,16 @@ var url = require('config').url;
 console.log(url); // 'http://domain.com'
 ```
 
+### Context module definition
+
+The caller of the module is the module export itself, which means:
+
+```javascript
+define('m', function(module) {
+  module === this;
+});
+```
+
 ### Access to the global object
 
 ```javascript
