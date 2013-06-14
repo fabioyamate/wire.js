@@ -6,6 +6,38 @@ follow some [Node module require syntax](http://nodejs.org/api/modules.html).
 
 It manages static modules defined for application and don't manage external resources from CDN.
 
+## Why?
+
+* simple definition
+* lazy, the modules are eval only when required
+* simple circular reference detection
+* unordered module definition
+
+Some of the common way of define modules is by define global variables like:
+
+```javascript
+var App = App || {};
+App.Module = function() {};
+App.Module.Submodule = {};
+```
+
+This is pretty common, but it needs to be evaluated in order. What I mean is, defining `App.Module`
+before `App` definition, requires that you explicit define `App || {}`, the same occurs with
+`App.Module.Submodule`. The more nesting you have, the worst it gets.
+
+Another issue with this approach is that, if you don't manage the load order, you may override on
+name definition with another.
+
+```
+// submodule.js
+App.Module = App.Module || {};
+App.Module.Submodule = function() {};
+
+// module.js
+App = App || {}
+App.Module = function() {}; // fail, this will override the Module constant and then Submodule is lost
+```
+
 ## Usage
 
 Defining a module is pretty simple:
