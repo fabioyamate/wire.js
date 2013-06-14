@@ -1,0 +1,27 @@
+{
+    "name": "require.js",
+    "title": "require.js",
+    "description": "Simple require and module definition for Javascript in browser",
+    "version": "0.0.1",
+    "homepage": "http://fabioyamate.github.io/require.js/",
+    "author": {
+        "name": "Fabio Yamate",
+        "url": "http://fabioyamate.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/fabioyamate/require.js.git"
+    },
+    "bugs": {
+        "url": "https://github.com/fabioyamate/require.js/issues"
+    },
+    "licenses": [
+        {
+           "type": "MIT",
+           "url": "https://github.com/fabioyamate/require.js/blob/master/MIT-LICENSE"
+        }
+    ],
+    "dependencies": {},
+    "devDependencies": {},
+    "keywords": ['module', 'dependency']
+}

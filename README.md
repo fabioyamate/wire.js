@@ -88,6 +88,13 @@ It uses [QUnit](http://qunitjs.com/) for tests. Just open in browser the `test/i
 
 ## Support
 
+## Changelog
+
+v0.0.1
+
+* supports global access into module definition
+* initial release with `require` and `define` support
+
 ## License
 
 Copyright 2013 Fabio Yamate <fabioyamate@gmail.com>
