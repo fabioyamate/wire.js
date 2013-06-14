@@ -82,6 +82,18 @@ define('my.module', function(module, global) {
 });
 ```
 
+### noConflict
+
+```javascript
+var myRequire = require.noConflict();
+require();   // calls the old version
+myRequire(); // calls the require.js version
+
+var myDefine = define.noConflict();
+define();   // calls the old version
+myDefine(); // calls the require.js version
+```
+
 ## Development
 
 It uses [QUnit](http://qunitjs.com/) for tests. Just open in browser the `test/index.html`.
@@ -89,6 +101,10 @@ It uses [QUnit](http://qunitjs.com/) for tests. Just open in browser the `test/i
 ## Support
 
 ## Changelog
+
+v0.0.2
+
+* `noConflict` support for both `require` and `define`
 
 v0.0.1
 

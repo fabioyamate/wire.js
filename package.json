@@ -2,7 +2,7 @@
     "name": "require.js",
     "title": "require.js",
     "description": "Simple require and module definition for Javascript in browser",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "homepage": "http://fabioyamate.github.io/require.js/",
     "author": {
         "name": "Fabio Yamate",
