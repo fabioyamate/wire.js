@@ -19,6 +19,20 @@ test('fails if module already defined', function() {
   }, Error, "Module 'duplicate' already defined.");
 });
 
+test('noConflict support for define', function() {
+  var definejs = define.noConflict();
+
+  definejs('define.noConflict', function(module, global) {
+    module.exports = 'newDefine';
+  });
+
+  equal('previous define version', define());
+  equal('newDefine', require('define.noConflict'));
+
+  // restore back
+  define = definejs;
+});
+
 module('require');
 
 test('fails with undefined module', function() {
@@ -114,4 +128,18 @@ test('global object access', function() {
   });
 
   require('global$object');
+});
+
+test('noConflict support for require', function() {
+  define('require.noConflict', function(module, global) {
+    module.exports = 'newRequire';
+  });
+
+  var requirejs = require.noConflict();
+
+  equal('previous require version', require());
+  equal('newRequire', requirejs('require.noConflict'));
+
+  // restore back
+  require = requirejs;
 });

@@ -1,7 +1,9 @@
 (function() {
     'use strict';
 
-    var root = this;
+    var root       = this,
+        oldRequire = root.require,
+        oldDefine  = root.define;
 
     var namespaces = {};
 
@@ -105,13 +107,18 @@
      *     module.exports = User;
      *   });
      */
-    root.define = function(name, fn) {
+    function define(name, fn) {
         if (namespaces[name]) {
             var error = sub(MODULE_ALREADY_DEFINED_ERROR, { name: name });
             throw new Error(error);
         }
 
         namespaces[name] = new Module(name, fn);
+    };
+
+    define.noConflict = function() {
+      root.define = oldDefine;
+      return this;
     };
 
     /* Public: requires a module name.
@@ -123,7 +130,15 @@
      *   var UserModel = require('model/user');
      *   var client = require('http').Client;
      */
-    root.require = function(name) {
+    function require(name) {
         return loadModule(name).exports;
     };
+
+    require.noConflict = function() {
+      root.require = oldRequire;
+      return this;
+    };
+
+    root.require = require;
+    root.define = define;
 }).call(this);
