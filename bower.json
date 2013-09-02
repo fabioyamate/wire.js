@@ -1,0 +1,22 @@
+{
+  "name": "requirejs",
+  "version": "0.0.2",
+  "homepage": "https://github.com/fabioyamate/require.js",
+  "authors": [
+    "Fabio Yamate <fabioyamate@gmail.com>"
+  ],
+  "description": "Simple require and module definition for Javascript in browser",
+  "main": "require.js",
+  "keywords": [
+    "module",
+    "dependency"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
