@@ -1,4 +1,4 @@
-module('define');
+module('wire.define');
 
 function moduleDefinition() {}
 
@@ -6,57 +6,44 @@ var foo = '[global bar]';
 var globalObject = this;
 
 test('lazy eval of module definition', function() {
-  define('foo', function() {
+  wire.define('foo', function() {
     throw 'error';
   });
   ok(true);
 });
 
 test('fails if module already defined', function() {
-  define('duplicate', moduleDefinition);
+  wire.define('duplicate', moduleDefinition);
   throws(function() {
-    define('duplicate', moduleDefinition);
+    wire.define('duplicate', moduleDefinition);
   }, Error, "Module 'duplicate' already defined.");
 });
 
-test('noConflict support for define', function() {
-  var definejs = define.noConflict();
 
-  definejs('define.noConflict', function(module, global) {
-    module.exports = 'newDefine';
-  });
-
-  equal('previous define version', define());
-  equal('newDefine', require('define.noConflict'));
-
-  // restore back
-  define = definejs;
-});
-
-module('require');
+module('wire.require');
 
 test('fails with undefined module', function() {
   throws(function() {
-    require('some/module');
+    wire.require('some/module');
   }, Error, "Module 'some/module' undefined.");
 });
 
 test('returns undefined if nothing exported', function() {
-  define('no/exports', moduleDefinition);
-  var module = require('no/exports');
+  wire.define('no/exports', moduleDefinition);
+  var module = wire.require('no/exports');
   equal(module, undefined);
 });
 
 test('can export an object', function() {
-  define('config', function(module) {
+  wire.define('config', function(module) {
     module.exports = { foo: 'bar' };
   });
-  var config = require('config');
+  var config = wire.require('config');
   equal(config.foo, 'bar');
 });
 
 test('can export a constructor', function() {
-  define('hello.world', function(module) {
+  wire.define('hello.world', function(module) {
     function HelloWorld() {};
 
     HelloWorld.prototype.say = function() {
@@ -66,7 +53,7 @@ test('can export a constructor', function() {
     module.exports = HelloWorld;
   });
 
-  var HW = require('hello.world');
+  var HW = wire.require('hello.world');
   var hello = new HW();
 
   equal(typeof HW, 'function');
@@ -76,70 +63,56 @@ test('can export a constructor', function() {
 test('can require as any name', function() {
   function ExportedName() {}
 
-  define('name', function(module) {
+  wire.define('name', function(module) {
     module.exports = ExportedName;
   });
 
-  var AnotherName = require('name');
+  var AnotherName = wire.require('name');
 
   strictEqual(ExportedName, AnotherName);
 });
 
 test('fails with circular dependency', function() {
-  define('chicken', function() {
-    var egg = require('egg');
+  wire.define('chicken', function() {
+    var egg = wire.require('egg');
   });
 
-  define('egg', function() {
-    var chicken = require('chicken');
+  wire.define('egg', function() {
+    var chicken = wire.require('chicken');
   });
 
   throws(function() {
-    require('egg');
+    wire.require('egg');
   }, Error, "Circular dependency, could not load 'egg' module.");
 });
 
 test('evals once the module definition', function() {
   var count = 0;
-  define('my.module/definition', function() {
+  wire.define('my.module/definition', function() {
     count += 1;
   });
 
-  require('my.module/definition');
-  require('my.module/definition');
-  require('my.module/definition');
-  require('my.module/definition');
+  wire.require('my.module/definition');
+  wire.require('my.module/definition');
+  wire.require('my.module/definition');
+  wire.require('my.module/definition');
 
   equal(count, 1);
 });
 
 test('caller context is the module export', function() {
-  define('context', function(module) {
+  wire.define('context', function(module) {
     equal(module, this, 'the caller is the module');
   });
 
-  require('context');
+  wire.require('context');
 });
 
 test('global object access', function() {
-  define('global$object', function(module, global) {
+  wire.define('global$object', function(module, global) {
     equal(global, globalObject, 'have access to the global object');
     equal('[global bar]', global.foo);
   });
 
-  require('global$object');
-});
-
-test('noConflict support for require', function() {
-  define('require.noConflict', function(module, global) {
-    module.exports = 'newRequire';
-  });
-
-  var requirejs = require.noConflict();
-
-  equal('previous require version', require());
-  equal('newRequire', requirejs('require.noConflict'));
-
-  // restore back
-  require = requirejs;
+  wire.require('global$object');
 });

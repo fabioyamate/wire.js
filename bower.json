@@ -1,12 +1,12 @@
 {
-  "name": "requirejs",
+  "name": "wire",
   "version": "0.0.2",
   "homepage": "https://github.com/fabioyamate/require.js",
   "authors": [
     "Fabio Yamate <fabioyamate@gmail.com>"
   ],
   "description": "Simple require and module definition for Javascript in browser",
-  "main": "require.js",
+  "main": "wire.js",
   "keywords": [
     "module",
     "dependency"

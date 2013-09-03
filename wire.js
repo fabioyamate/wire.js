@@ -1,9 +1,7 @@
 (function() {
     'use strict';
 
-    var root       = this,
-        oldRequire = root.require,
-        oldDefine  = root.define;
+    var root       = this;
 
     var namespaces = {};
 
@@ -116,11 +114,6 @@
         namespaces[name] = new Module(name, fn);
     };
 
-    define.noConflict = function() {
-      root.define = oldDefine;
-      return this;
-    };
-
     /* Public: requires a module name.
      *
      * If the module name doesn't exist, it throws an error.
@@ -134,11 +127,5 @@
         return loadModule(name).exports;
     };
 
-    require.noConflict = function() {
-      root.require = oldRequire;
-      return this;
-    };
-
-    root.require = require;
-    root.define = define;
+    root.wire = { define: define, require: require };
 }).call(this);
