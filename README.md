@@ -1,4 +1,4 @@
-# Require.js
+# Wire
 
 This is a basic implementation of module definition and requiring it dynamically,
 following a bit the [Node module require syntax](http://nodejs.org/api/modules.html).
