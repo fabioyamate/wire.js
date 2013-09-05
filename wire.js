@@ -1,7 +1,8 @@
 (function() {
     'use strict';
 
-    var root       = this;
+    var root    = this,
+        oldWire = root.wire;
 
     var namespaces = {};
 
@@ -112,7 +113,7 @@
         }
 
         namespaces[name] = new Module(name, fn);
-    };
+    }
 
     /* Public: requires a module name.
      *
@@ -125,7 +126,14 @@
      */
     function require(name) {
         return loadModule(name).exports;
-    };
+    }
 
-    root.wire = { define: define, require: require };
+    /* Public: restores previous wire version.
+     */
+    function noConflict() {
+        root.wire = oldWire;
+        return this;
+    }
+
+    root.wire = { define: define, require: require, noConflict: noConflict };
 }).call(this);

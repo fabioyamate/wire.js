@@ -1,3 +1,19 @@
+module('wire.noConflict');
+
+test('restore previous defined wire version', function() {
+  wire.define('wire.noConflict', function(module, global) {
+    module.exports = 'newWire';
+  });
+
+  var wirejs = wire.noConflict();
+
+  equal('previous wire version', wire());
+  equal('newWire', wirejs.require('wire.noConflict'));
+
+  // restore back
+  wire = wirejs;
+});
+
 module('wire.define');
 
 function moduleDefinition() {}

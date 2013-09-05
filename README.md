@@ -113,6 +113,13 @@ wire.define('my.module', function(module, global) {
 });
 ```
 
+### noConflict
+
+```javascript
+var myWire = wire.noConflict();
+wire(); // calls the old version
+```
+
 ## Development
 
 It uses [QUnit](http://qunitjs.com/) for tests. Just open in browser the `test/index.html`.
