@@ -1,8 +1,7 @@
-# Require.js
+# Wire
 
-This is a basic implementation of module definition and requiring it dynamically. It doesn't have
-anything related to the [require.js](https://github.com/jrburke/requirejs) specification, it just
-follow some [Node module require syntax](http://nodejs.org/api/modules.html).
+This is a basic implementation of module definition and requiring it dynamically,
+following a bit the [Node module require syntax](http://nodejs.org/api/modules.html).
 
 It manages static modules defined for application and don't manage external resources from CDN.
 
@@ -44,7 +43,7 @@ Defining a module is pretty simple:
 
 ```javascript
 // file foo.js
-define('foo', function(module) {
+wire.define('foo', function(module) {
   function Foo(message) {
     this.message = message;
   }
@@ -61,7 +60,7 @@ It can exports an object:
 
 ```javascript
 // file config.js
-define('config', function(module) {
+wire.define('config', function(module) {
   var CONFIG = {
     url: 'http://domain.com'
   };
@@ -73,7 +72,7 @@ define('config', function(module) {
 Requiring a module is pretty simple:
 
 ```javascript
-var FooBar = require('foo');
+var FooBar = wire.require('foo');
 foobar = new FooBar('hello world');
 foobar.say(); // alerts 'hello world'
 ```
@@ -81,7 +80,7 @@ foobar.say(); // alerts 'hello world'
 You also require a specific property of an object:
 
 ```javascript
-var url = require('config').url;
+var url = wire.require('config').url;
 console.log(url); // 'http://domain.com'
 ```
 
@@ -90,7 +89,7 @@ console.log(url); // 'http://domain.com'
 The caller of the module is the module export itself, which means:
 
 ```javascript
-define('m', function(module) {
+wire.define('m', function(module) {
   module === this;
 });
 ```
@@ -99,7 +98,7 @@ define('m', function(module) {
 
 ```javascript
 // file module.js
-define('my.module', function(module, global) {
+wire.define('my.module', function(module, global) {
   var $ = global.jQuery;
 
   function A(selector) {
@@ -117,13 +116,8 @@ define('my.module', function(module, global) {
 ### noConflict
 
 ```javascript
-var myRequire = require.noConflict();
-require();   // calls the old version
-myRequire(); // calls the require.js version
-
-var myDefine = define.noConflict();
-define();   // calls the old version
-myDefine(); // calls the require.js version
+var myWire = wire.noConflict();
+wire(); // calls the old version
 ```
 
 ## Development

@@ -1,6 +1,6 @@
 {
-    "name": "require.js",
-    "title": "require.js",
+    "name": "wire.js",
+    "title": "wire.js",
     "description": "Simple require and module definition for Javascript in browser",
     "version": "0.0.2",
     "homepage": "http://fabioyamate.github.io/require.js/",
