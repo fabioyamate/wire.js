@@ -128,6 +128,10 @@ It uses [QUnit](http://qunitjs.com/) for tests. Just open in browser the `test/i
 
 ## Changelog
 
+v0.0.3
+
+* rename the project to `wire`, check https://github.com/fabioyamate/require.js/pull/1
+
 v0.0.2
 
 * `noConflict` support for both `require` and `define`
