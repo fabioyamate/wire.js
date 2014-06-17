@@ -1,27 +1,27 @@
 {
     "name": "wire.js",
     "title": "wire.js",
-    "description": "Simple require and module definition for Javascript in browser",
+    "description": "Simple require and module definition for JavaScript in browser",
     "version": "0.0.2",
-    "homepage": "http://fabioyamate.github.io/require.js/",
+    "homepage": "http://fabioyamate.github.io/wire.js",
     "author": {
         "name": "Fabio Yamate",
         "url": "http://fabioyamate.com"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/fabioyamate/require.js.git"
+        "url": "https://github.com/fabioyamate/wire.js.git"
     },
     "bugs": {
-        "url": "https://github.com/fabioyamate/require.js/issues"
+        "url": "https://github.com/fabioyamate/wire.js/issues"
     },
     "licenses": [
         {
            "type": "MIT",
-           "url": "https://github.com/fabioyamate/require.js/blob/master/MIT-LICENSE"
+           "url": "https://github.com/fabioyamate/wire.js/blob/master/MIT-LICENSE"
         }
     ],
     "dependencies": {},
     "devDependencies": {},
-    "keywords": ['module', 'dependency']
+    "keywords": ["module", "dependency"]
 }

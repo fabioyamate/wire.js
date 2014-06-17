@@ -1,11 +1,11 @@
 {
   "name": "wire",
   "version": "0.0.3",
-  "homepage": "https://github.com/fabioyamate/require.js",
+  "homepage": "https://github.com/fabioyamate/wire.js",
   "authors": [
     "Fabio Yamate <fabioyamate@gmail.com>"
   ],
-  "description": "Simple require and module definition for Javascript in browser",
+  "description": "Simple require and module definition for JavaScript in browser",
   "main": "wire.js",
   "keywords": [
     "module",
@@ -17,6 +17,7 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "release.sh"
   ]
 }
